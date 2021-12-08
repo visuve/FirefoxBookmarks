@@ -11,11 +11,10 @@ std::string uncompress(std::ifstream& stream, int compressed_size, int uncompres
 
 	std::string uncompressed(uncompressed_size, '\0');
 
-	int bytes_decompressed = LZ4_decompress_safe_partial(
+	int bytes_decompressed = LZ4_decompress_safe(
 		compressed.data(),
 		uncompressed.data(),
 		compressed_size,
-		uncompressed_size,
 		uncompressed_size);
 
 	if (bytes_decompressed <= 0)
