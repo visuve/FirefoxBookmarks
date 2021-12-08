@@ -45,13 +45,22 @@ bool has_mozilla_lz4_header(std::ifstream& stream)
 	return header.starts_with("mozLz40");
 }
 
+void usage(const std::filesystem::path& executable)
+{
+	std::cerr << "Usage:" << std::endl;
+	std::cerr << executable.string() << " <input-file> <output-file>" << std::endl;
+	std::cerr << "Example:" << std::endl;
+#ifndef _WIN32
+	std::cerr << "./";
+#endif
+	std::cerr << executable.filename().string() << " bookmarks.json.lz4 bookmarks.json" << std::endl;
+}
+
 int main(int argc, char** argv)
 {
 	if (argc != 3)
 	{
-		std::cerr << "Usage:" << std::endl;
-		std::cerr << argv[0] << " <input-file> <output-file>" << std::endl;
-		std::cerr << "E.g. <bookmarks.json.lz4> <bookmarks.json>" << std::endl;
+		usage(argv[0]);
 		return -1;
 	}
 
